@@ -1,36 +1,60 @@
 #include<bits/stdc++.h>
 using namespace std;
+#define ll long long
 void solve(){
-    int n;
+    // ll n;
+    // cin>>n;
+    // unordered_map<ll,ll>mp;
+    // ll maxSame = 1;
+    // for(int i=0;  i < n; i++){
+    //     int x;
+    //     cin>>x;
+    //     mp[x]++;
+    //     maxSame = max(maxSame,mp[x]);
+    // }
+    // if(maxSame == n){
+    //     cout<<0;
+    //     return;
+    // }
+    // ll move = 0;
+    // ll target = n-maxSame;
+    // ll ans = 0;
+    // while(target > 0){
+    //     move++;
+    //     target -= maxSame*move;
+    //     ans += 1+(maxSame*move);
+    // }
+    // ans += target;
+    // cout<<ans;
+    // Simplifying the approach
+    ll n;
     cin>>n;
-    vector<int>arr(n,0);
-    unordered_map<int,int>mp;
-    for(int i=0; i < arr.size(); i++){
-        int temp;
+    unordered_map<ll,ll>mp;
+    ll maxSame = 1;
+    for(int i=0; i < n; i++){
+        ll temp;
         cin>>temp;
         mp[temp]++;
+        maxSame = max(maxSame,mp[temp]);
+        // Now we have the maximum repating one
     }
-    int maxi = 0;
-    for(auto it: mp){
-        maxi = max(it.second,maxi);
+    if(maxSame == n){
+        cout<<0;
+        return;
     }
-    int count = 1;
-    int target = n-maxi;
-    int rep = maxi;
-    while(target){
-        for(int i=1; i < rep && target >= 0; i++){
-            if(target > 0){
-                count++;
-                target--;
-            }
-            count++;
-            rep *= 2;
-
+    ll count = 0;
+    while(maxSame <= n){
+        count++;
+        if(maxSame*2 >= n){
+            count +=(n-maxSame);
+            break;
         }
+        count += maxSame;
+        maxSame *= 2;
     }
     cout<<count;
-    
-    
+
+
 }
 int main(){
     int tc;
